@@ -1,3 +1,3 @@
-export default async function handler(req, res) {
-  res.status(200).json({ ok: true, ts: Date.now() });
-}
+module.exports = async function (req, res) {
+  res.status(200).json({ ok: true, msg: "health v2", ts: Date.now() });
+};

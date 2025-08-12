@@ -2,12 +2,9 @@
   "name": "zotero-mcp",
   "version": "1.0.0",
   "private": true,
-  "type": "module",
   "scripts": {
     "dev": "vercel dev",
     "start": "node api/sse.js"
   },
-  "engines": {
-    "node": ">=18"
-  }
+  "engines": { "node": ">=18" }
 }
