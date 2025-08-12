@@ -1,12 +1,8 @@
 {
   "functions": {
-    "api/**/*.js": {
-      "runtime": "nodejs20.x",
+    "api/*.js": {
+      "runtime": "nodejs22.x",
       "maxDuration": 10
     }
-  },
-  "routes": [
-    { "src": "^/api/health$", "dest": "api/health.js" },
-    { "src": "^/api/sse$", "dest": "api/sse.js" }
-  ]
+  }
 }
