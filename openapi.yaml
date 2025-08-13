@@ -1,0 +1,74 @@
+openapi: 3.1.0
+info:
+  title: Zotero MCP API
+  version: 1.0.0
+  description: Endpoints para listar itens do Zotero via backend do Marcos.
+servers:
+  - url: https://zotero-mcp.vercel.app
+paths:
+  /api/health:
+    get:
+      operationId: health
+      summary: Verifica a saúde da API
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok: { type: boolean }
+                  ts: { type: number }
+  /api/hello:
+    get:
+      operationId: hello
+      summary: Hello route
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok: { type: boolean }
+                  route: { type: string }
+                  ts: { type: number }
+  /api/sse:
+    get:
+      operationId: listItems
+      summary: Lista itens do Zotero do usuário
+      description: |
+        Retorna até `limit` itens da biblioteca Zotero configurada no backend (via ZOTERO_USER_ID e ZOTERO_API_KEY).
+        Observação: embora a rota se chame "sse", o handler retorna JSON síncrono nesta versão.
+      parameters:
+        - in: query
+          name: action
+          required: true
+          schema: { type: string, enum: [listItems] }
+          description: Deve ser "listItems".
+        - in: query
+          name: limit
+          required: false
+          schema: { type: integer, default: 5, minimum: 1, maximum: 50 }
+      responses:
+        "200":
+          description: Lista de itens
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok: { type: boolean }
+                  mode: { type: string, enum: [zotero, stub] }
+                  items:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        key: { type: string }
+                        title: { type: string }
+                        creators: { type: string }
+        "400": { description: Erro de parâmetro }
+        "500": { description: Erro interno }
