@@ -1,12 +1,10 @@
 {
   "version": 2,
   "builds": [
-    { "src": "api/*.js", "use": "@vercel/node" }
+    { "src": "api/**/*.js", "use": "@vercel/node" }
   ],
   "routes": [
-    { "src": "^/api$", "dest": "/api/index.js" },
-    { "src": "^/api/health$", "dest": "/api/index.js" },
-    { "src": "^/api/hello$", "dest": "/api/index.js" },
-    { "src": "^/api/sse$", "dest": "/api/sse.js" }
+    { "src": "/openapi.yaml", "dest": "/public/openapi.yaml" },
+    { "src": "/api/(.*)", "dest": "/api/$1" }
   ]
 }
